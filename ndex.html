@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<title>奇胜美妆网 - 科学护肤，精准推荐</title>
+<style>
+/* 此处放置全部样式（同 style.css 内容） */
+:root{--primary:#e8967a;--primary-light:#f5c6b3;--primary-dark:#d48165;--accent:#d4a08c;--bg:#fafaf8;--card-bg:#ffffff;--text-dark:#2c2c2c;--text-gray:#5a5a5a;--text-light:#888888;--border:#e8e3df;--shadow-sm:0 1px 3px rgba(0,0,0,0.04);--shadow:0 2px 12px rgba(0,0,0,0.06);--shadow-lg:0 8px 30px rgba(0,0,0,0.08);--radius:12px;--radius-sm:8px;--transition:0.25s ease;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{font-size:16px;}
+body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',-apple-system,sans-serif;background:var(--bg);color:var(--text-dark);line-height:1.7;padding-top:68px;min-height:100vh;-webkit-font-smoothing:antialiased;}
+nav{position:fixed;top:0;left:0;width:100%;background:rgba(255,255,255,0.92);border-bottom:1px solid #ece8e4;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 32px;height:68px;backdrop-filter:blur(10px);}
+.logo{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;}
+.logo-icon{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;overflow:hidden;box-shadow:0 4px 10px rgba(232,150,122,0.25);position:relative;}
+.logo-icon img{width:100%;height:100%;object-fit:cover;border-radius:10px;}
+.logo-icon::after{content:'';position:absolute;top:-2px;right:-2px;width:8px;height:8px;background:#fff;border-radius:50%;opacity:0.6;}
+.logo-text{display:flex;align-items:baseline;gap:2px;}
+.logo-main{font-size:1.45rem;font-weight:700;color:#2c2c2c;letter-spacing:-0.3px;}
+.logo-sub{font-size:1.45rem;font-weight:700;color:var(--primary);letter-spacing:-0.3px;}
+.nav-links{display:flex;list-style:none;gap:4px;}
+.nav-links li a{text-decoration:none;color:#5a5a5a;padding:8px 20px;border-radius:22px;font-weight:500;font-size:0.95rem;transition:var(--transition);cursor:pointer;display:block;}
+.nav-links li a:hover{background:#f5f0ed;color:#3d3d3d;}
+.nav-links li a.active{background:var(--primary);color:#fff;font-weight:600;}
+button,.option-btn,.filter-btn,.buy-btn,.view-toggle-btn{transition:transform 0.12s ease,background 0.25s ease,box-shadow 0.25s ease;}
+button:active,.option-btn:active,.filter-btn:active,.buy-btn:active,.view-toggle-btn:active{transform:scale(0.96);}
+.view-toggle-btn{background:var(--primary);color:#fff;border:none;padding:8px 16px;border-radius:20px;font-size:0.85rem;font-weight:600;cursor:pointer;margin-left:12px;white-space:nowrap;}
+.view-toggle-btn:hover{background:var(--primary-dark);}
+.container{max-width:1200px;margin:0 auto;padding:32px 24px;}
+section{display:none;animation:fadeIn 0.4s ease;}
+section.active-section{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+h2{font-size:1.75rem;color:#2c2c2c;margin-bottom:28px;padding-left:14px;border-left:4px solid var(--primary);font-weight:700;}
+.product-filter{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px;}
+.filter-btn{padding:9px 22px;border:1.5px solid #ddd9d5;border-radius:22px;background:#fff;font-size:0.9rem;font-weight:500;cursor:pointer;transition:var(--transition);color:#5a5a5a;}
+.filter-btn:hover{border-color:var(--primary);color:var(--primary);}
+.filter-btn.active-filter{background:var(--primary);color:#fff;border-color:var(--primary);}
+.quiz-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);max-width:700px;margin:0 auto 36px;overflow:hidden;border:1px solid var(--border);}
+.brand-banner{width:100%;height:210px;background:linear-gradient(135deg,#fce4d6 0%,#fdeff0 100%);display:flex;align-items:center;justify-content:center;text-align:center;padding:0 20px;position:relative;overflow:hidden;border-bottom:3px solid rgba(232,150,122,0.3);}
+.brand-banner::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(232,150,122,0.1);}
+.brand-banner::after{content:'';position:absolute;bottom:-40px;left:-20px;width:160px;height:160px;border-radius:50%;background:rgba(255,182,161,0.12);}
+.banner-content{position:relative;z-index:1;color:#5d4037;}
+.banner-title{font-size:1.5rem;font-weight:700;margin-bottom:10px;color:var(--primary);}
+.banner-tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px;}
+.banner-tag{background:rgba(255,255,255,0.8);padding:5px 14px;border-radius:20px;font-size:0.8rem;font-weight:600;color:#8d6e63;border:1px solid rgba(232,150,122,0.3);}
+.quiz-inner{padding:24px 28px 28px;}
+.quiz-question h3{font-size:1.35rem;margin-bottom:22px;color:#2c2c2c;font-weight:600;}
+.progress-bar-wrap{width:100%;height:4px;background:#eee9e4;border-radius:4px;margin:18px 0 8px;overflow:hidden;}
+.progress-bar-fill{height:100%;background:var(--primary);border-radius:4px;transition:width 0.4s ease;width:0%;}
+.progress-text{text-align:center;color:#999;font-size:0.85rem;margin-top:4px;}
+.options-grid{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:14px;}
+.option-btn{flex:1 1 calc(50% - 12px);min-width:110px;padding:13px 18px;border:1.5px solid #e0dbd6;border-radius:24px;background:#fafaf8;font-size:0.95rem;font-weight:500;cursor:pointer;text-align:center;color:#3d3d3d;}
+.option-btn:hover{border-color:var(--primary);background:#fef8f5;color:var(--primary);}
+.result-area{margin-top:18px;padding:20px;background:#faf8f6;border-radius:var(--radius-sm);display:none;border:1px solid #ece8e3;}
+.result-area.show{display:block;}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:22px;margin-top:18px;}
+.product-card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);transition:transform 0.3s ease,box-shadow 0.3s ease;display:flex;flex-direction:column;cursor:pointer;border:1px solid #eee9e4;}
+.product-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);}
+.product-card .img-container{width:100%;height:210px;background:#faf9f7;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.product-card .img-container img{max-width:100%;max-height:100%;object-fit:contain;transition:transform 0.4s ease;}
+.product-card:hover .img-container img{transform:scale(1.02);}
+.product-card .info{padding:16px 18px;flex:1;display:flex;flex-direction:column;}
+.product-card .info h4{margin-bottom:6px;color:#2c2c2c;font-size:1.05rem;font-weight:600;}
+.product-card .type-badge{display:inline-block;background:#f5ede7;color:#8b6b5c;padding:3px 10px;border-radius:14px;font-size:0.72rem;font-weight:600;margin-bottom:8px;align-self:flex-start;}
+.product-card .desc{color:#777;font-size:0.85rem;margin-bottom:10px;flex:1;line-height:1.6;}
+.product-card .attrs{font-size:0.8rem;color:#666;background:#faf8f6;padding:10px 12px;border-radius:var(--radius-sm);line-height:1.5;}
+.product-card .price-capacity{margin-top:8px;font-weight:700;color:#c0392b;font-size:1rem;}
+.product-card .price-capacity .original-price{text-decoration:line-through;color:#999;font-weight:400;margin-right:8px;font-size:0.85rem;}
+.product-card .buy-btn{display:block;width:calc(100% - 32px);margin:0 16px 16px;padding:10px 0;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:0.9rem;font-weight:600;cursor:pointer;transition:background 0.25s ease,transform 0.12s ease;}
+.product-card .buy-btn:hover{background:var(--primary-dark);}
+.category-recommend{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px;margin-top:18px;}
+.category-block{background:#fff;padding:20px;border-radius:var(--radius);box-shadow:var(--shadow-sm);border:1px solid #eee9e4;}
+.category-block h3{margin-bottom:14px;color:#2c2c2c;border-bottom:2px solid #f0e8e1;padding-bottom:10px;font-size:1.05rem;font-weight:600;}
+.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px;}
+.news-card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);cursor:pointer;transition:transform 0.3s ease,box-shadow 0.3s ease;border:1px solid #eee9e4;}
+.news-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
+.news-card img{width:100%;height:170px;object-fit:cover;}
+.news-card .news-text{padding:16px 18px;}
+.news-card .news-text h4{margin-bottom:6px;color:#2c2c2c;font-weight:600;}
+.news-card .news-text p{color:#777;font-size:0.85rem;line-height:1.6;}
+.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.55);display:none;align-items:center;justify-content:center;z-index:2000;padding:20px;}
+.modal-overlay.active{display:flex;}
+.modal-content{background:#fff;border-radius:var(--radius);max-width:700px;width:100%;max-height:80vh;overflow-y:auto;padding:30px;position:relative;box-shadow:0 16px 48px rgba(0,0,0,0.15);border:1px solid #ece8e3;animation:modalIn 0.3s ease;}
+@keyframes modalIn{from{opacity:0;transform:scale(0.94) translateY(12px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.modal-close{position:absolute;top:14px;right:20px;font-size:1.6rem;cursor:pointer;color:#999;transition:color 0.2s;}
+.modal-close:hover{color:#333;}
+.product-detail-buy{display:inline-block;margin-top:18px;padding:11px 28px;background:var(--primary);color:#fff;text-decoration:none;border-radius:24px;font-weight:600;transition:background 0.25s ease;font-size:0.95rem;}
+.product-detail-buy:hover{background:var(--primary-dark);}
+.contact-form{max-width:560px;margin:0 auto;background:#fff;padding:28px;border-radius:var(--radius);box-shadow:var(--shadow-sm);border:1px solid #eee9e4;}
+.contact-form input,.contact-form textarea{width:100%;padding:11px 14px;margin-bottom:16px;border:1.5px solid #e0dbd6;border-radius:var(--radius-sm);font-size:0.95rem;background:#fafaf8;color:#2c2c2c;outline:none;transition:border-color 0.25s ease;}
+.contact-form input:focus,.contact-form textarea:focus{border-color:var(--primary);background:#fff;}
+.contact-form textarea{height:120px;resize:vertical;}
+.contact-form button{background:var(--primary);color:#fff;border:none;padding:11px 28px;border-radius:24px;font-size:0.95rem;font-weight:600;cursor:pointer;transition:background 0.25s ease;}
+.contact-form button:hover{background:var(--primary-dark);}
+.contact-form .form-feedback{margin-top:16px;padding:12px 16px;border-radius:8px;display:none;font-weight:500;text-align:center;}
+.contact-form .form-feedback.success{display:block;background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7;}
+.contact-form .form-feedback.error{display:block;background:#fbe9e7;color:#c62828;border:1px solid #ef9a9a;}
+.about-card{background:#fff;border-radius:var(--radius);padding:28px;margin:28px auto;max-width:800px;border:1px solid #eee9e4;box-shadow:var(--shadow-sm);}
+.about-card h3{font-size:1.5rem;margin-bottom:14px;color:#2c2c2c;}
+.about-card p{font-size:1rem;line-height:1.8;margin-bottom:16px;color:#5a5a5a;}
+.contact-info-card{background:#fff;border-radius:var(--radius);padding:28px;margin:28px auto;max-width:800px;border:1px solid #eee9e4;box-shadow:var(--shadow-sm);text-align:center;}
+.contact-info-card h3{font-size:1.5rem;margin-bottom:18px;color:#2c2c2c;}
+.contact-info-item{margin:10px 0;font-size:1rem;color:#5a5a5a;}
+footer{text-align:center;padding:28px;color:#999;margin-top:48px;font-size:0.9rem;}
+.article-content h3{font-size:1.25rem;margin:22px 0 10px;color:#2c2c2c;font-weight:700;}
+.article-content p{margin-bottom:14px;color:#5a5a5a;text-indent:2em;line-height:1.85;}
+.article-content .sub-title{font-weight:700;color:#3d3d3d;margin:16px 0 8px;text-indent:0;}
+body.mobile{padding-top:56px;}
+body.mobile nav{padding:0 12px;height:56px;flex-wrap:wrap;}
+body.mobile .logo{gap:6px;}
+body.mobile .logo-icon{width:30px;height:30px;}
+body.mobile .logo-main,body.mobile .logo-sub{font-size:1.1rem;}
+body.mobile .nav-links{order:3;width:100%;overflow-x:auto;justify-content:flex-start;gap:2px;padding:4px 0;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;}
+body.mobile .nav-links::-webkit-scrollbar{height:2px;}
+body.mobile .nav-links::-webkit-scrollbar-thumb{background:var(--primary);border-radius:4px;}
+body.mobile .nav-links li a{padding:5px 10px;font-size:0.75rem;white-space:nowrap;}
+body.mobile .view-toggle-btn{padding:5px 10px;font-size:0.7rem;margin-left:6px;}
+body.mobile .container{padding:20px 12px;}
+body.mobile h2{font-size:1.35rem;margin-bottom:18px;padding-left:10px;}
+body.mobile .brand-banner{height:140px;padding:0 12px;}
+body.mobile .banner-title{font-size:1.15rem;margin-bottom:6px;}
+body.mobile .banner-tags{gap:4px;}
+body.mobile .banner-tag{font-size:0.65rem;padding:3px 8px;}
+body.mobile .quiz-inner{padding:14px 16px;}
+body.mobile .quiz-question h3{font-size:1.1rem;margin-bottom:16px;}
+body.mobile .options-grid{gap:8px;}
+body.mobile .option-btn{flex:1 1 100%;padding:12px 14px;font-size:0.9rem;min-width:0;}
+body.mobile .result-area{padding:14px;}
+body.mobile .product-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
+body.mobile .product-card .img-container{height:130px;}
+body.mobile .product-card .info{padding:10px;}
+body.mobile .product-card .info h4{font-size:0.85rem;}
+body.mobile .product-card .desc{font-size:0.7rem;}
+body.mobile .product-card .attrs{font-size:0.68rem;padding:6px 8px;}
+body.mobile .product-card .price-capacity{font-size:0.85rem;}
+body.mobile .product-card .buy-btn{width:calc(100% - 20px);margin:0 10px 10px;padding:8px 0;font-size:0.8rem;}
+body.mobile .category-recommend{grid-template-columns:1fr;gap:12px;}
+body.mobile .category-block{padding:14px;}
+body.mobile .category-block h3{font-size:0.95rem;}
+body.mobile .news-grid{grid-template-columns:1fr;gap:12px;}
+body.mobile .news-card img{height:140px;}
+body.mobile .news-card .news-text{padding:12px;}
+body.mobile .news-card .news-text h4{font-size:0.95rem;}
+body.mobile .news-card .news-text p{font-size:0.78rem;}
+body.mobile .modal-content{padding:18px;margin:10px;}
+body.mobile .contact-form{padding:18px;}
+body.mobile .about-card,body.mobile .contact-info-card{padding:18px;margin:18px auto;}
+body.mobile .about-card h3,body.mobile .contact-info-card h3{font-size:1.2rem;}
+body.mobile .about-card p,body.mobile .contact-info-item{font-size:0.9rem;}
+body.mobile footer{padding:18px;font-size:0.8rem;}
+body.mobile .product-filter{gap:6px;margin-bottom:18px;}
+body.mobile .filter-btn{padding:7px 14px;font-size:0.8rem;}
+</style>
+</head>
+<body>
+<nav>
+<div class="logo" onclick="navigateTo('home')">
+<div class="logo-icon"><img src="https://img.bosszhipin.com/beijin/upload/com/logo/20250811/7b5b554d84f9729c851f0afa39236fdc0c04520b39294cdb0fd1bb879880ce47bf89f5bdb0134b73.jpg.webp?x-oss-process=image/resize,w_120,limit_0" alt="奇胜美妆网"></div>
+<div class="logo-text"><span class="logo-main">奇胜</span><span class="logo-sub">美妆网</span></div>
+</div>
+<ul class="nav-links">
+<li><a class="nav-item active" data-target="home">首页</a></li>
+<li><a class="nav-item" data-target="recommend">推荐</a></li>
+<li><a class="nav-item" data-target="products">全部商品</a></li>
+<li><a class="nav-item" data-target="news">资讯</a></li>
+<li><a class="nav-item" data-target="contact">联系我们</a></li>
+</ul>
+<button class="view-toggle-btn" id="viewToggleBtn">📱 手机视图</button>
+</nav>
+
+<section id="home" class="active-section">
+<div class="container">
+<h2>✨ 智能好物推荐</h2>
+<div class="quiz-card">
+<div class="brand-banner"><div class="banner-content"><div class="banner-title">专注美妆好物</div><div class="banner-tags"><span class="banner-tag">📹 短视频平台核心阵地</span><span class="banner-tag">🌿 素人真实种草</span><span class="banner-tag">💰 高性价比好物</span><span class="banner-tag">💄 彩妆护肤全品类</span></div></div></div>
+<div class="quiz-inner">
+<div id="quizSteps"></div>
+<div class="result-area" id="resultArea"><h3 style="color:#2c2c2c;">🎯 为您推荐以下产品</h3><div class="product-grid" id="recommendProducts"></div></div>
+</div>
+</div>
+<div class="about-card"><h3>🌱 关于奇胜生物</h3><p>公司专注自有美妆品牌运营，主要彩妆与护肤全品类产品，以短视频平台为核心阵地，通过素人真实种草打造口碑，用高性价比好物连接年轻消费者，做更懂用户的国货美妆。</p></div>
+<div class="contact-info-card"><h3>📞 联系奇胜生物</h3><div class="contact-info-item">📍 公司地址：郑州中原区河南省国家大学科技园（东区）18号楼-D座11层奇胜生物科技有限公司</div><div class="contact-info-item">📞 客服电话：400-888-9999</div><div class="contact-info-item">📧 电子邮箱：3197131244@qq.com</div><div class="contact-info-item">🕘 工作时间：上午08：40-下午06：00</div></div>
+</div>
+</section>
+
+<section id="recommend"><div class="container"><h2>🏆 各类别人气最高产品</h2><div class="category-recommend" id="categoryRecommend"></div></div></section>
+
+<section id="products"><div class="container"><h2>📦 全部商品</h2><div class="product-filter" id="productFilter"><button class="filter-btn active-filter" data-filter="全部">全部</button><button class="filter-btn" data-filter="洁面">洁面</button><button class="filter-btn" data-filter="眼霜">眼霜</button><button class="filter-btn" data-filter="定妆喷雾">定妆喷雾</button><button class="filter-btn" data-filter="面膜">面膜</button></div><div class="product-grid" id="allProducts"></div></div></section>
+
+<section id="news"><div class="container"><h2>📰 资讯</h2><div class="news-grid" id="newsGrid"></div></div></section>
+
+<section id="contact"><div class="container"><h2>📬 给我们留言</h2><form class="contact-form" id="contactForm" method="POST"><input type="hidden" name="_captcha" value="true"><input type="text" name="name" placeholder="您的姓名" required><input type="email" name="email" placeholder="电子邮箱" required><textarea name="message" placeholder="请输入您的留言或问题" required></textarea><button type="submit">发送消息</button><div class="form-feedback" id="formFeedback"></div></form></div></section>
+
+<div class="modal-overlay" id="newsModal"><div class="modal-content"><span class="modal-close" id="closeNewsModal">&times;</span><h3 id="modalTitle" style="color:#2c2c2c;"></h3><img id="modalImg" src="" alt="" style="width:100%; max-height:300px; object-fit:contain; background:#faf8f6; border-radius:8px; margin:15px 0;"><div id="modalContent" class="article-content" style="color:#5a5a5a;"></div></div></div>
+<div class="modal-overlay" id="productModal"><div class="modal-content"><span class="modal-close" id="closeProductModal">&times;</span><div id="productDetailContent"></div></div></div>
+
+<footer><p>© 2026 奇胜美妆网 - 科学护肤，自然之美</p></footer>
+
+<script>
+// 此处放置全部 JavaScript（同 script.js 内容）
+const products = [
+{id:11,name:'VANT36.5 泛醇温和洁面乳',type:'洁面',image:'https://img.alicdn.com/imgextra/i4/2220240257938/O1CN01OBKzeN28Vf7SnqsMP_!!4611686018427380626-0-item_pic.jpg_q50.jpg_.webp',desc:'温和净肤、保湿舒缓、修护泛红、控油提亮。',attributes:{'主要成分':'月桂酰甲基牛磺酸钠、椰油酰甘氨酸钾、泛醇、双重积雪组合、茶树油、多种果蔬植物提取物','主要功效':'补水保湿、舒缓褪红、修护屏障、维稳嫩肤、淡化痘印','适用肤质':'油皮、干皮、混合皮、敏感肌'},detail:'VANT36.5 泛醇温和洁面乳兼具温和清洁、保湿修护、舒缓控油、提亮肤质多重功效。采用氨基酸复配表活，泡沫绵密，可洗净油脂、防晒淡妆，清洁不拔干。核心添加泛醇与积雪草修护组合，舒缓泛红、强韧肌肤屏障；搭配茶树、薰衣草植萃控油抑痘，多种果蔬提取物改善暗沉。全肤质适用，敏肌、痘肌、干油皮都能安心使用，清洁养肤一步到位。',tags:['清洁','温和','油皮','干皮','混合皮','敏感肌','保湿','舒缓','控油'],popularity:780,price:125,originalPrice:139,capacity:'100ml',buyLink:'https://detail.tmall.hk/hk/item.htm?abbucket=5&id=958055970824'},
+{id:8,name:'理央玻色因多效精华眼霜',type:'眼霜',image:'https://img.alicdn.com/imgextra/i1/2218637824240/O1CN01LvMNJq1hByRLqEwHK_!!2218637824240.jpg_q50.jpg_.webp',desc:'抗皱淡纹、焕亮消肿、长效保湿修护。',attributes:{'主要成分':'烟酰胺、乙酰基六肽-8、二棕榈酰羟脯氨酸、玻色因','主要功效':'抗皱、紧致淡眼纹细纹、初抗老、熬夜、补水','适用肤质':'油皮、干皮、混合皮、敏感肌（敏感肌使用前做皮肤测试）'},detail:'专为眼周娇嫩肌肤定制的全能型精华眼霜，兼顾保湿润养、紧致抗皱、消肿提亮多重功效，轻盈丝滑的质地一抹融肤，不厚重不闷肤，兼顾年轻肌抗初老与熟龄肌淡纹紧致需求，轻松改善眼周干燥细纹、浮肿泡泡眼、熬夜暗沉黑眼圈，长期使用重塑弹润眼周，绽放明亮双眸。',tags:['抗皱','30+','滋润','科技成分','油皮','干皮','混合皮','敏感肌','保湿'],popularity:1500,price:130,originalPrice:145,capacity:'30g',buyLink:'https://detail.tmall.com/item.htm?abbucket=5&id=836860673406'},
+{id:9,name:'MOTASY 清透雾感定妆喷雾',type:'定妆喷雾',image:'https://img.alicdn.com/imgextra/i4/2219753605896/O1CN01OkQaGI1tQQJAWWPhx_!!4611686018427382536-0-item_pic.jpg_q50.jpg_.webp',desc:'定妆持妆、妆面雾感妆效、妆中护肤修护。',attributes:{'主要成分':'甘油、丁二醇、北美金缕梅水、各类鲸蜡硬脂醇聚醚','主要功效':'长效定妆锁妆、雾面妆效、保湿持润、舒缓修护、妆面抗暗沉','适用肤质':'油皮、干皮、混合皮、敏感肌'},detail:'MOTASY清透雾感定妆喷雾集定妆锁妆、水润服帖、养肤修护于一体，轻松打造精致长效的高级雾面妆容。产品采用专属成膜配方，水雾细腻不冲花底妆，能快速形成轻薄透气的锁妆膜，牢牢固定彩妆，有效改善浮粉、蹭妆、斑驳脱妆问题，吸附面部多余油光，自带防水防汗效果，日常通勤、轻微出汗出油也能持久持妆。区别于普通定妆产品拔干紧绷的缺点，它添加多重保湿成分，补水锁水、柔化底妆，抚平卡粉干纹，改善起皮、假面厚重问题，让妆面轻薄服帖、水润自然，干皮、混干皮也能长效舒适带妆。同时配方添加进口植萃与双专利修护成分，温和舒缓肌肤泛红、减轻彩妆刺激，敏感肌可安心使用；搭配抗氧化成分，有效延缓底妆发黄暗沉，实现定妆、持妆、养肤三合一，兼顾精致妆感与肌肤舒适感。',tags:['定妆','油皮','干皮','混合皮','敏感肌','清爽','保湿','舒缓','控油'],popularity:890,price:76.13,originalPrice:84.63,capacity:'100ml',buyLink:'https://detail.tmall.com/item.htm?id=918478082650'},
+{id:10,name:'理央积雪草雪肌舒缓面膜',type:'面膜',image:'https://img.alicdn.com/imgextra/i4/2218637824240/O1CN01TSSom51hByJMvvsHG_!!2218637824240.jpg',desc:'补水保湿、舒缓褪红、修护屏障、柔滑细腻。',attributes:{'主要成分':'泛醇、多重积雪草提取物、水解透明质酸钠、1,2-己二醇','主要功效':'补水保湿、舒缓褪红、修护屏障、维稳嫩肤、淡化痘印','适用肤质':'油皮、干皮、混合皮、敏感肌'},detail:'理央积雪草雪肌舒缓面膜依托科学复配配方，精选多国进口优质原料，以甘油、丁二醇、英国进口泛醇、西班牙 1,2-己二醇构建多层保湿体系，搭配三重积雪草提取物、水解透明质酸钠、α-葡聚糖寡糖等舒缓精粹，从表层补水锁水到深层修护屏障同步完成，高效缓解肌肤干燥粗糙、泛红敏感、晒后不适等问题。配方体系温和纯净，肤感水润清爽，敷用 15-20 分钟即可充分吸收养分，后续简单打理，轻松养出水润柔滑的细腻肤质，全肤质适配，是日常护肤、应急修护的刚需面膜。',tags:['保湿','舒缓','油皮','干皮','混合皮','敏感肌','温和','天然植物'],popularity:920,price:76.13,originalPrice:84.63,capacity:'6片',buyLink:'https://detail.tmall.com/item.htm?abbucket=20&id=843907884411'}
+];
+const newsData = [
+{id:4,title:'玻色因精准修护眼周 理央眼霜击退当代眼部多重困扰',img:'https://img.alicdn.com/imgextra/i1/2218637824240/O1CN01LvMNJq1hByRLqEwHK_!!2218637824240.jpg_q50.jpg_.webp',summary:'眼睛是面部神态的灵魂，也是最先暴露疲惫与年龄的部位。',content:`<div class="article-content"><h3>前言</h3><p>眼睛是面部神态的灵魂，也是最先暴露疲惫与年龄的部位。眼周肌肤厚度仅为脸部其他区域的三分之一，皮脂腺稀少、几乎没有脂肪层保护，每天眨眼上万次，还要承受熬夜作息、电子蓝光、日晒损伤、频繁表情拉扯等多重伤害。当下上班族、熬夜党、轻熟龄人群，几乎人人都被眼周问题困扰。理央玻色因多效精华眼霜依托科学复配配方，直击大众主流眼周痛点，以温和高效的玻色因核心体系，一站式实现淡纹、紧致、消浮肿、亮肤色，适配全肤质日常眼部养护，成为万千消费者的眼部护肤优选。</p><h3>一、当代大众普遍眼周困扰</h3><p>现如今不同年龄段、不同作息的人群，眼周问题有着鲜明的共性，大多都是生活习惯与肌肤老化共同作用的结果，很多人护肤无效，本质是没有对症解决问题。</p><p class="sub-title">（一）熬夜水肿 + 顽固黑眼圈</p><p>当代职场人常年加班、熬夜刷手机，长期面对电脑与手机蓝光，眼周静脉血液循环持续放缓，血液淤积形成青紫色血管型黑眼圈，晨起眼皮水分代谢不畅，浮肿眼袋格外突出，整个人自带疲惫倦容。还有不少人习惯用力揉眼、眼周防晒缺位，紫外线刺激黑色素沉淀，慢慢形成棕褐色色素型黑眼圈；而 28 岁之后胶原流失，眼窝凹陷、软组织松弛带来的结构型阴影黑眼圈，更是单纯遮瑕无法掩盖的硬伤，混合型黑眼圈成为绝大多数人的现状，普通保湿眼霜只能短暂水润，完全无法改善循环与色素问题。</p><p class="sub-title">（二）干纹细纹滋生，初老痕迹悄然而至</p><p>25 岁是肌肤胶原流失的分水岭，眼周胶原蛋白、弹性纤维每年匀速减少，长期待在空调房、换季干燥缺水，眼下极易长出浅层干纹，上妆时反复卡粉斑驳。日常大笑、皱眉形成的动态鱼尾纹，久而久之会转变为难以消退的静态皱纹，眼角皮肤慢慢松弛，双眼皮逐渐变窄、眼尾下垂，很多人早早出现初老迹象。不少人盲目使用高浓度 A 醇猛药眼霜，眼周肌肤耐受度不足，极易出现泛红、刺痛、脱皮，敏感肌根本无法长期坚持抗老护肤。</p><p class="sub-title">（三）眼周松弛轮廓垮塌，熟龄抗老迫在眉睫</p><p>步入 35 岁之后，眼周真皮层支撑力大幅下降，真皮与表皮连接层变松散，韧带弹性减弱，眼袋膨出、泪沟凹陷问题愈发明显，整张脸的视觉年龄瞬间拉高。市面上部分紧致眼霜只做表面收敛，短暂收紧后快速反弹，还有厚重矿油配方的产品，涂抹后闷堵毛孔，频繁催生脂肪粒，油皮、混油皮避之不及，想要兼顾紧致效果与肤感，挑选合适眼霜的难度居高不下。</p><p class="sub-title">（四）肤质敏感脆弱，护肤极易踩雷翻车</p><p>眼周肌肤神经密集，是全身最娇嫩的皮肤区域，很多眼霜添加酒精、人工香精、刺激性防腐剂，长期使用会破坏眼周屏障，引发干痒、泛红。干性肌肤需要长效保湿，油性肌肤怕油腻闷痘，敏感肌追求温和安全，单一功效的眼霜很难兼顾不同肤质需求，反复更换护肤品，反而持续损伤眼周屏障，让各类肌肤问题愈发严重。</p><h3>二、理央玻色因多效精华眼霜，核心配方直击全部眼周痛点</h3><p>理央深耕眼部护肤研发，打造专利玻色因复配体系，摒弃概念性成分添加，以高活性原料搭配多元精华，多靶点同步作用于眼周肌肤，针对性攻克水肿、黑眼圈、干纹、松弛、敏感等所有常见问题，配方经过严格肤质测试，温和适配干皮、油皮、混油皮、敏感肌全类型肤质。</p><p class="sub-title">（一）核心高纯度玻色因，根源紧致淡纹，温和抗老不伤肤</p><p>产品核心选用高纯度羟丙基四氢吡喃三醇（玻色因），拥有专属制备发明专利加持，区别于市面低价低纯度原料，杂质更少、渗透力更强，能够深入真皮层，主动刺激糖胺聚糖与 I 型、III 型胶原蛋白合成，加固表皮与真皮的基底连接，强化肌肤内在支撑力，从源头充盈松弛眼周，收紧眼尾轮廓，改善眼袋、泪沟松弛问题。相较于刺激性的 A 醇类抗老成分，玻色因性质温和，不会破坏角质屏障，敏感肌早晚均可安心使用。坚持使用能够逐步填平浅层干纹，淡化常年形成的静态鱼尾纹，提升眼周弹性，延缓胶原流失速度，年轻肌用来预防初老，熟龄肌用来修护老化纹路，抗老适配性拉满。同时搭配乙酰基六肽 - 8，舒缓眼周表情肌收缩，减少动态纹路生成，双效协同实现"防纹 + 淡纹"，抗皱效果事半功倍。</p><p class="sub-title">（二）循环提亮组合成分，高效消水肿，瓦解多重黑眼圈</p><p>针对熬夜浮肿与复合型黑眼圈，配方科学复配法国进口葡糖基橙皮苷、高活性咖啡因与 VC 衍生物，组成循环提亮黄金组合。咖啡因能够加速眼周淋巴循环，快速排出多余滞留水分，晨起涂抹按摩几分钟，即可快速消退眼皮浮肿，改善静脉血液淤堵，高效改善青黑色血管型黑眼圈；VC 衍生物温和抑制黑色素活性，加速表层色素代谢，改善日晒、揉眼形成的棕色素沉着，双重作用同步改善血管型、色素型黑眼圈，搭配玻色因的充盈效果，改善凹陷带来的结构型阴影，全方位提亮暗沉眼周，轻松告别熬夜倦态双眼。</p><p class="sub-title">（三）三重保湿修护体系，长效水润，杜绝干纹与脂肪粒</p><p>眼霜搭载透明质酸钠、泛醇、神经酰胺三重保湿修护成分，构建表层锁水、中层补水、深层修护的完整保湿网络，长效锁住眼周水分，解决换季、空调环境下的干燥缺水问题，彻底告别眼下干纹与上妆卡粉难题，同步修护脆弱角质屏障，缓解眼周泛红敏感。质地采用清爽水包油基底，完全不含矿油、致痘成分，膏体软糯丝滑，触肤快速化开吸收，油皮使用清爽不黏腻，干皮涂抹滋润不拔干，轻薄配方不会闷堵眼周细小毛孔，从根源规避脂肪粒滋生问题，一年四季使用都拥有绝佳肤感，早晚护肤、妆前打底都十分合适。</p><p class="sub-title">（四）极简安心配方，严苛质检，全肤质安心使用</p><p>理央坚守温和护肤理念，产品无酒精、无人工香精、无劣质防腐剂，完成专业敏感肌人体测试，孕妇、敏弱肌都可以放心使用。产品拥有正规化妆品备案（粤 G 妆网备字 2024184334），全生产流程遵循国标美妆生产规范，每一批次原料都经过层层质检，功效与安全双重保障，避开大众护肤常见刺激雷区，长期使用稳步养护眼周健康肤质。</p><h3>三、分人群适配使用，不同肤质轻松收获理想护肤效果</h3><p><strong>1. 年轻熬夜上班族（20-28 岁）</strong><br>核心需求：消浮肿、去黑眼圈、预防初老干纹。日常早晚薄涂于眼周，熬夜后可厚敷 5 分钟做急救护理，快速舒缓眼部疲惫，改善熬夜暗沉水肿，提前补充胶原，阻止干纹、鱼尾纹生成，守住肌肤年轻状态，百元价位即可享受院线级眼部护理，性价比远超同类型进口眼霜。</p><p><strong>2. 轻熟龄女性（28-40 岁）</strong><br>核心需求：淡化纹路、收紧轮廓、改善松弛。坚持每日早晚规律使用，配合简单的提拉按摩手法，玻色因持续充盈真皮层，逐步淡化静态细纹，收紧下垂眼尾，改善轻微眼袋与泪沟，逐步还原紧致上扬的眼周线条，有效延缓衰老速度，长期使用能够明显降低视觉年龄。</p><p><strong>3. 敏感肌、干皮 / 油皮特殊肤质人群</strong><br>敏感肌可建立短期耐受后正常早晚使用，温和配方修护受损屏障，改善眼周易红易痒问题；大干皮长效锁水，告别秋冬眼周起皮、干纹加重；油皮、混油皮无需担心黏腻闷痘，吸收迅速，后续叠加粉底液、遮瑕完全搓泥，妆前使用让眼周底妆服帖精致。</p><h3>四、科学使用小技巧，放大眼霜护肤效果</h3><p>想要充分发挥理央玻色因多效精华眼霜的全部功效，正确用法必不可少：洁面护肤完成水、精华步骤后，取米粒大小眼霜，以无名指指腹点涂在下眼睑、眼尾、上眼皮位置，以打圈方式轻柔按摩至完全吸收，顺着眼尾向上提拉，不要大力拉扯肌肤；晨起主打消浮肿提亮，夜间侧重修护抗皱，坚持早晚使用效果更佳；白天搭配眼部防晒，抵御紫外线光老化，内外养护结合，效果翻倍。</p><h3>结语</h3><p>眼周衰老从来都不是一朝一夕形成的，改善眼部困扰，也无需追求速效医美，选对一款功效全面、配方扎实的眼霜，坚持日常养护，才是长久维稳的最优解。理央玻色因多效精华眼霜，以专利高纯度玻色因为核心，复配多重靶向精华，把消水肿、褪黑眼圈、淡细纹、紧轮廓、强屏障五大功效融为一体，精准对应现代人所有眼周护肤痛点，兼顾功效、温和度与使用肤感，适配全年龄段、全肤质日常使用。不必再为繁杂的眼霜挑选发愁，一支即可搞定全套眼周护理，循序渐进修护受损眼周，抚平岁月纹路，赶走疲惫暗沉，让双眼时刻紧致透亮，轻松留住年轻灵动状态。</p></div>`},
+{id:5,title:'理央积雪草雪肌舒缓面膜 精研进口成分修护各类肌肤困扰',img:'https://img.alicdn.com/imgextra/i4/2218637824240/O1CN01TSSom51hByJMvvsHG_!!2218637824240.jpg',summary:'当代都市人的面部肌肤，常年被环境污染、冷热温差、熬夜作息、不当护肤、紫外线日晒轮番侵扰，泛红刺痛、换季敏感、干燥紧绷、晒后灼热、油痘炎症、面色萎黄等问题层出不穷。理央积雪草雪肌舒缓面膜，以积雪草为核心，精准解决现代人主流面部肌肤难题。',content:`<div class="article-content"><h3>前言</h3><p>当代都市人的面部肌肤，常年被环境污染、冷热温差、熬夜作息、不当护肤、紫外线日晒轮番侵扰，泛红刺痛、换季敏感、干燥紧绷、晒后灼热、油痘炎症、面色萎黄等问题层出不穷。很多护肤误区都是盲目追求强效美白、速效抗老，堆砌刺激性功效产品，不断破坏皮肤角质屏障，陷入越护肤肤质越脆弱的恶性循环。养好肌肤的核心永远是屏障修护，今天结合产品完整配方，详解理央积雪草雪肌舒缓面膜，依托进口原料搭配科学配方，以积雪草为核心，精准解决现代人主流面部肌肤难题，补水、舒缓、维稳、匀净肤色一步到位，是全肤质日常护理、肌肤急救的优选面膜。</p><h3>一、当代大众高频肌肤痛点，根源皆是屏障受损</h3><p>绝大多数脸部不适，本质都是皮肤屏障受损引发的连锁反应，不同人群的肌肤困扰，都能对应这款面膜的适配方向。</p><p class="sub-title">（一）换季敏感泛红，极易干痒刺痛</p><p>这是当下最普遍的肌肤问题。频繁刷酸去角质、长期用刺激性护肤品、换季花粉刺激、空调房冷热交替，都会让角质层皮脂膜破损，脸颊阵发性发红发烫，上护肤品伴随刺痛，甚至长出小红疹，敏感肌常常陷入护肤就过敏、不护肤状态变差的两难处境。此时肌肤耐受度极低，不能使用强效功效产品，急需温和的镇静修护配方。</p><p class="sub-title">（二）肌肤缺水紧绷，起皮卡粉锁水力薄弱</p><p>上班族长期处于密闭空调环境、熬夜代谢变差、日常补水不到位，角质层含水量不足，鼻翼嘴角起皮，洁面后紧绷僵硬，上妆斑驳浮粉。普通面膜只能短暂浸湿表皮，没办法锁住水分，而想要长效水润，必须在补水的同时修护屏障锁水能力，从底层改善缺水问题。</p><p class="sub-title">（三）日晒、刷酸后的肌肤灼热受损</p><p>夏日户外紫外线极易造成晒红发热，严重时晒伤脱皮；日常刷酸、清洁护理后，角质层脆弱，肌肤处于炎症敏感期，红肿不适频发。受损阶段必须避开刺激性成分，依靠舒缓成分快速褪红抗炎，一旦修护不及时，极易形成顽固红血丝与炎症色沉，让肤质越来越差。</p><p class="sub-title">（四）熬夜萎黄、油脂失衡、痘印肤色不均</p><p>这是年轻人的常态化困扰。作息紊乱会放缓肌肤新陈代谢，面容暗沉憔悴；油皮油脂分泌旺盛，毛孔堵塞滋生痘痘，痘印久久难以淡化。不少人为改善黄气痘印，选用刺激性美白原料，进一步损伤屏障，造成敏感 + 暗沉双重问题。而这款面膜主打修护型透亮，依靠强韧肤质改善炎症黄气，温和匀净肤色，完美规避猛药护肤的副作用。</p><p>市面面膜大多功效单一，要么只补水没有修护力，要么功效强刺激性高，很难兼顾敏感肌使用。理央积雪草雪肌舒缓面膜完全依照肌肤底层问题研发，结合英国、西班牙进口原料搭配完整配方，以屏障修护为核心，集舒缓、保湿、维稳、柔亮肤色于一体，适配所有肤质日常维稳与应急修护，从根源改善肌肤亚健康。</p><h3>二、实拍配方全解析，进口原料搭配积雪草，温和修护力拉满</h3><p>结合产品背面完整配料表，这款面膜配方精简科学，无酒精添加，依托双国进口原料加持，核心成分各司其职，安全度与功效性兼备，敏感肌、痘肌都能安心使用。</p><p class="sub-title">核心灵魂：三重积雪草活性物，专业舒缓修护</p><p>配方核心添加积雪草提取物、羟基积雪草甙、积雪草苷三重活性成分，也是护肤界公认的"修护黄金"。积雪草活性成分可以快速抑制肌肤内部炎症因子，即时舒缓泛红、干痒、灼热等敏感症状，快速安抚躁动肌肤；同时可以激活肌肤细胞活力，修补受损角质缝隙，逐步增厚皮肤屏障，长期使用提升肌肤耐受力，改善后天红血丝，降低换季过敏概率。针对晒后、酸类护理后的受损肌肤，能够加速表皮修护，快速消退红肿，减少炎症色沉，是肌肤急救的核心成分。</p><p class="sub-title">英国进口泛醇 + 尿囊素，双重加成维稳抗炎</p><p>配料表明确标注英国进口泛醇（维生素 B5），搭配尿囊素协同作用。泛醇可以深入肌肤表层，修护微小角质创口，舒缓痘痘破损后的红肿不适；尿囊素长效镇静维稳，弱化肌肤浅层炎症，和积雪草相辅相成，强化修护效果，改善痘痘反复发炎的情况，油性痘肌长痘期间使用，可以温和舒缓痘肌炎症。</p><p class="sub-title">多元醇 + 透明质酸钠，立体分层长效保湿</p><p>以丁二醇、甘油、西班牙进口 1,2 - 己二醇作为保湿基底，复配水解透明质酸钠，实现分层补水保湿。小分子透明质酸钠渗透肌底，补充深层缺水，改善肌肤干瘪；多元醇锁住角质层水分，缓解紧绷起皮；表层形成透气保湿膜，减少水分快速蒸发，告别敷完面膜几小时就恢复干燥的问题，水润感长效持久，从根源解决上妆卡粉难题。</p><p class="sub-title">益生元组合调节微生态，优化肤质状态</p><p>配方额外添加 α- 葡聚糖寡糖、菊粉益生元成分，能够调节肌肤表面菌群平衡，改善油皮外油内干、油脂过剩的问题，稳定肌肤水油状态，减少因菌群失衡反复爆痘、敏感的情况，从内在调理肤质健康。</p><p class="sub-title">温和防腐体系，全肤质低敏安心</p><p>采用西班牙进口 1,2 - 己二醇搭配对羟基苯乙酮复配防腐，完全不含酒精，配方规避刺激性防腐剂，搭配 EDTA 二钠稳定整体配方体系，降低致敏风险。不管是健康肤质日常保养，敏感期应急修护，或是脆弱肤质长期使用，都足够温和安全。</p><h3>三、标准使用流程清晰，全场景适配日常护肤需求</h3><p>产品自带标准使用步骤，操作简单易上手，面膜精华质地水润清爽，适配各类肤质肤感需求。使用方法：洁面之后，拆开包装取出面膜完整展开，均匀敷于面部，静待 15-20 分钟；时间结束后揭下面膜，用指腹轻轻按摩脸上剩余精华至吸收，后续清水洗净即可完成护理。多余的精华液可以涂抹颈部、手肘等干燥部位，精华利用率更高。精华液流动性适中，上脸清爽不黏腻，油皮敷用不会闷肤闷痘，干皮可以充分吸收养分，吸收后肤感顺滑，后续叠加水乳、面霜、彩妆不会搓泥厚重。这款面膜的使用场景覆盖日常全部护肤时段：晨间护肤敷 5 至 8 分钟，快速补水提亮，唤醒熬夜暗沉的肌肤，让后续底妆更加服帖，告别卡粉斑驳；晚间洁面后敷 15 分钟深度修护，缓解一整天外界环境带来的刺激，改善日间日晒、空气污染造成的肌肤疲惫；换季过敏、晒后灼热、刷酸护理之后，可连续 2 至 3 天做急救修护，快速褪红降温，舒缓肌肤不适感；油性痘痘肌炎症期使用，安抚红肿痘痘，淡化新生红痘印，避免痘痘反复发炎。健康肤质每周使用 2 至 3 次可以日常维稳，敏感肌循序渐进强韧屏障，长期使用养成稳定肤质。</p><h3>四、长期规律使用，养出水润细腻的健康雪肌</h3><p>护肤的本质，永远是先修护屏障，再谈肤质提亮。理央积雪草雪肌舒缓面膜坚持科学护肤逻辑，先修补肌肤受损屏障，同步完成补水、维稳、柔润肤色，循序渐进改善肤质，而非追求短暂的表面效果。短期使用就能直观感受肌肤变化：泛红刺痛的敏感区域快速褪红舒缓，干痒不适感快速消失，干燥起皮的肌肤瞬间充盈水润，晒后的灼热感快速消散，肤色即刻变得通透饱满，底妆服帖度明显提升。坚持周期使用，皮肤屏障会日渐强韧，换季温差、紫外线、外界刺激很难再引发过敏泛红，后天红血丝慢慢淡化；肌肤水油逐步趋于平衡，大油皮出油量减少，干皮锁水能力稳步提升，熬夜带来的萎黄暗沉、痘痘留下的炎症痘印稳步改善。肤质从脆弱的亚健康状态，慢慢变成耐受力更强的健康肤质，后续使用其他护肤品，营养吸收效率也会大幅提升，让护肤事半功倍。对比市面同类积雪草面膜，本品依托英国泛醇、西班牙己二醇进口原料加持，积雪草三重活性成分浓度扎实，兼顾修护实力与温和安全性，肤感优秀，精华利用率高，性价比亲民，学生党、上班族、敏感肌人群都可以长期入手，兼顾日常平价护肤与敏感期专属修护。</p><h3>结语</h3><p>在环境压力与不良生活习惯的影响下，泛红、干燥、晒损、暗沉等面部问题，早已成为大众常态。想要拥有细腻透亮的健康肌肤，不必盲目堆砌高价猛药护肤品，选对一款以屏障修护为核心的舒缓面膜，就是护肤的捷径。理央积雪草雪肌舒缓面膜严格依托完整配方体系，以三重积雪草精粹为核心，搭配多国进口原料，精准解决泛红敏感、干燥缺水、晒后受损、油痘暗沉等各类肌肤困扰，配方温和无酒精，适配全肤质。把这款面膜纳入日常护肤清单，做好日常维稳与应急修护，稳步强韧皮肤屏障，告别反反复复的肌肤小问题，轻松养出水润柔滑、状态稳定的透亮雪肌，从容应对各类肌肤困扰。</p></div>`},
+{id:6,title:'直面底妆多重肌肤困扰 MOTASY 雾感定妆喷雾解锁长效精致妆',img:'https://img.alicdn.com/imgextra/i4/2219753605896/O1CN01OkQaGI1tQQJAWWPhx_!!4611686018427382536-0-item_pic.jpg_q50.jpg_.webp',summary:'精致妆容是当代人职场通勤、日常约会、外出社交的加分利器，但大多数人总会被各式各样的面部妆容与肌肤问题困扰。MOTASY 清透雾感定妆喷雾依托双专利配方，搭配美韩进口植萃原料，精准对标各类肤质痛点，将长效持妆与肌肤养护融为一体。',content:`<div class="article-content"><h3>前言</h3><p>精致妆容是当代人职场通勤、日常约会、外出社交的加分利器，但大多数人总会被各式各样的面部妆容与肌肤问题困扰。干皮上妆卡纹起皮、油皮出油泛油斑驳脱妆，混油皮常年陷入 T 区出油、两颊拔干的两难境地，再加上夏日出汗晕妆、日常佩戴口罩蹭妆、带妆数小时后底妆氧化暗沉等状况，精心打造的妆容往往撑不过半天。反复补妆不仅耗费时间精力，层层叠加彩妆还容易堵塞毛孔，诱发泛红、闭口、闷痘等肌肤问题。想要从根源破解底妆翻车难题，选对一款兼具强定妆力与温和养肤力的定妆产品尤为关键。MOTASY 清透雾感定妆喷雾依托双专利配方，搭配美韩进口植萃原料，精准对标各类肤质痛点，将长效持妆与肌肤养护融为一体，兼顾高级妆感与上脸舒适度，成为全肤质人群的定妆优选。</p><h3>一、日常底妆痛点全覆盖，不同肤质的化妆难题一目了然</h3><p>底妆频繁翻车，从来都不只是粉底液的问题，肤质差异、环境温度、老旧的定妆方式相互作用，造就了层出不穷的化妆烦恼，不同肤质的困扰更是特征鲜明。</p><p class="sub-title">（一）干性肌肤：缺水卡粉、干纹积线、起皮斑驳</p><p>干皮角质层含水量不足，眼周、嘴角、法令纹等纹路部位极易卡进粉膏，鼻翼与下颌经常起皮浮粉。很多干皮人群为改善卡粉，叠加厚重保湿妆前产品，再搭配散粉定妆，极易出现搓泥、假面厚重的问题。身处空调房或是秋冬干燥环境，肌肤水分快速流失，妆面紧绷干涩，不仅妆效粗糙难看，长期带妆还会加剧肌肤敏感脆弱。</p><p class="sub-title">（二）油性肤质：油脂分泌旺盛，脱妆油光严重</p><p>环境温度升高，皮脂腺活跃度直线上升，春夏闷热天气、密闭办公空间里，油皮 T 区、鼻翼出油速度飞快，油脂会快速乳化粉底，短短两三小时就会出现粉底移位、局部脱落，整张脸油光发亮。不少油皮会选择高吸力散粉强行控油，短期能够压制油光，后续油脂反而会代偿性分泌，越控越油，厚重粉质堵塞毛孔，久而久之滋生粉刺、闭口，让肌肤状态越来越差。</p><p class="sub-title">（三）混合肤质：水油失衡，妆面割裂</p><p>混合肤质堪称化妆"最难肤质"，一套产品很难兼顾水油状态。强效控油产品会让两颊干皮区域愈发紧绷卡纹，主打保湿的底妆产品又会加速额头、鼻头出油，半天时间就形成"中间油、两边干"的割裂妆面。除此之外，所有肤质都会遇到通用的妆容麻烦：户外运动、健身流汗时，汗水直接冲刷妆容导致晕花；长期佩戴口罩，鼻梁、下颌的粉底反复被蹭落，沾染在口罩与衣领上；普通定妆喷雾水珠粗大，喷洒瞬间冲花底妆，成膜后膜感厚重不透气，肌肤无法顺畅呼吸，待到午后妆容氧化发黄，妆效大打折扣。</p><p>市面不少传统定妆产品短板明显，散粉粉质厚重，极易卡在毛孔细纹中；定妆膏黏腻闷肤，长时间带妆负担重；平价定妆喷雾不仅锁妆效果差，还添加高浓度酒精，敏感肌使用极易刺痛泛红。想要彻底告别底妆内耗，一款配方专业、适配性广的定妆产品必不可少。MOTASY 清透雾感定妆喷雾依托完整的彩妆研发体系，搭载两项国家发明专利原料，甄选美国、韩国进口植萃成分，从成膜定妆、水油调节、舒缓养肤多个维度，一站式解决干皮、油皮、混油皮、敏感肌的全部化妆难题。</p><h3>二、依托专利进口原料，硬核配方直击肌肤与妆容核心困扰</h3><p>这款定妆喷雾以清透雾感、长效持妆、温和养肤为研发核心，升级微米雾化喷头，搭配科学复配配方，把长效锁妆与亲肤养护合二为一，每一种原料都精准对应肤质需求，实力解决各类化妆难题。</p><p class="sub-title">（一）微米级广角雾化喷头，雾感细腻不冲妆</p><p>喷头工艺直接决定定妆喷雾的使用体验，市面上普通喷雾喷头孔径偏大，喷出的水珠粗重，近距离喷洒会直接冲散刚上好的底妆，远距离喷洒又无法均匀覆盖全脸，局部积水会造成粉底结块斑驳。MOTASY 搭载广角微米雾化喷头，能够将原液打散为超细薄雾颗粒，360° 扇形广角出雾，只需距离面部 20-30cm 轻轻扫过，额头、鼻翼、眼周等细微死角都可以均匀覆盖，完全不会产生大水珠，新手也能轻松上手，完全不用担心损毁底妆。喷雾上脸触感轻盈冰凉，没有黏腻水渍感，自带自然柔焦效果，可以柔和修饰毛孔与肌肤细微凹凸。成膜之后呈现高级清透雾面妆效，摒弃惨白厚重的假面妆感，完美保留底妆本身的质感，无论是水润奶油肌底妆，还是哑光持妆粉底，喷洒融合后妆面干净高级，轻松打造原生好皮质感。配方中的丙烯酸 (酯) 类共聚物作为核心成膜原料，成膜稳定轻薄，膜体隐形透气，为长效持妆打下扎实基础。</p><p class="sub-title">（二）多元醇保湿 + 金缕梅收敛控油双向平衡，长效防水防汗</p><p>持妆力是定妆产品的核心实力，本品采用快速冷却成膜技术，喷洒后 15 秒即可形成一层柔韧的隐形透气锁妆膜，牢牢固定粉底、遮瑕、腮红等全层彩妆，隔绝汗水、油脂对底妆的侵蚀，日常通勤可稳固 12 小时完整妆面，高温户外、长时间外勤也能稳稳守住精致妆容。产品精准拿捏不同肤质水油需求，配方添加甘油、丁二醇、透明质酸钠等多重保湿成分，高效抓取并锁住角质层水分，从根源改善干皮缺水卡粉、起皮紧绷的问题；搭配美国进口北美金缕梅水，温和收敛肌肤、调节皮脂腺活跃度，轻柔吸附多余表层油脂，而非暴力脱脂控油，长效压制油皮 T 区油光，避免油脂乳化粉底，实现油皮控油不拔干、干皮保湿不泛油，完美适配混油皮水油失衡的痛点。同时产品具备优秀的防水防汗、耐蹭防沾染能力，夏日暴晒出汗、运动流汗后，用纸巾轻按面部，妆容完整不晕染；日常戴口罩、穿衣摩擦、近距离接触，粉底不易移位沾染，彻底解决粉底蹭脏衣物的尴尬。早八学生党、全天在岗职场人、外景拍摄与婚礼跟妆等长时间带妆场景，都能长久维持清爽妆面，无需频繁补妆。</p><p class="sub-title">（三）双专利植萃配方，美韩进口原料加持，敏肌痘肌安心定妆</p><p>很多定妆产品为追求强效控油，添加高浓度工业酒精、刺激性防腐剂，长时间带妆破坏皮脂膜，敏感肌易泛红刺痛，痘肌极易闷痘闭口，让化妆变相损伤皮肤。而 MOTASY 完整成分表不含乙醇（酒精），精简配方规避刺激性香精与致痘成分，依靠双专利原料搭配进口植萃，做到定妆与养肤同步进行。产品搭载两项中国发明专利成分：专利号 ZL201010527766.7 的胶原与酵母发酵产物提取物，胶原柔润细腻肤质，酵母提取物抗氧化，有效延缓底妆氧化发黄，长时间带妆依旧肤色透亮；专利号 ZL201710183506.4 的龙胆根提取物，主打抗炎舒缓，修护脆弱肌肤屏障。再搭配韩国进口马齿苋提取物，与北美金缕梅相辅相成，舒缓肌肤泛红、缓解外界环境带来的刺激，换季敏感期、脆弱痘肌都可以安心使用。防腐体系采用苯氧乙醇、辛酰羟肟酸等温和原料复配，锁妆膜轻薄透气，肌肤毛孔可正常呼吸代谢，长时间带妆不会闷肤闷痘，打破"化妆必定伤肤"的固有认知，即便每日带妆，也能兼顾妆容精致度与肌肤健康状态。</p><h3>三、全肤质专属使用方法，全场景适配</h3><p>MOTASY 清透雾感定妆喷雾适配所有肤质与日常场景，掌握四种基础用法，就能把定妆效果发挥到极致，新手也能快速上手操作。</p><p><strong>妆前打底法（干皮首选）</strong>：护肤结束、涂抹粉底液之前，距离面部 25cm 均匀喷洒一层喷雾，自然风干后，在肌肤表层搭建保湿缓冲层，提升底妆附着力，从源头预防后续卡粉起皮，让粉底与肌肤贴合度更高。</p><p><strong>妆中融合用法（全肤质通用）</strong>：取少量喷雾喷洒在美妆蛋、粉扑表面，再拍推开粉底，让粉底与喷雾充分融合，有效改善浮粉、搓泥问题，底妆扒肤力显著提升。</p><p><strong>妆后终极定妆法（主流用法）</strong>：完整上完底妆与彩妆后，面部微微上扬，以 Z 字形手法匀速全脸喷洒，避开眼唇区域，等待 15 秒自然成膜即可。油皮可着重在 T 区、鼻翼二次薄喷，强化控油效果；干皮脸颊适当减少用量，保留肌肤水润感；混油皮分区喷洒，针对性平衡局部水油。</p><p><strong>便携外出补妆法</strong>：产品便于随身收纳，午后出油脱妆时，先用吸油纸轻按吸走多余油脂，远距离薄喷一层，快速还原干净雾面妆效，补妆不会厚重结块，随时随地快速恢复精致妆容。在场景适配性上，这款喷雾可以轻松覆盖各类日常需求：学生早八快速上妆定妆，课堂一整天妆容清爽服帖；职场白领奔波外勤、长期密闭办公，无惧温差与出油，妆容体面不暗沉；海边度假、户外约会，防水防汗抵御日晒海风；新娘全天婚礼跟妆、美妆博主外景拍摄，超长带妆时长稳定在线，妆面始终清透自然，不会出现氧化发灰的情况。</p><h3>四、结语：一瓶全能定妆喷雾，告别底妆内耗</h3><p>化妆的初衷是提升自身状态与自信，不该被层出不穷的底妆问题消耗心情。干皮卡纹、油皮脱妆、混皮水油失衡、敏感肌惧怕刺激，这些长期困扰大众的化妆难题，不必再堆砌多款产品勉强应对，一瓶 MOTASY 清透雾感定妆喷雾就能一站式解决。微米薄雾喷头打造高级雾面原生妆，告别假面厚重；速干成膜技术搭配多元醇与进口金缕梅，控油保湿双向兼顾，防水防蹭牢牢锁住妆容，大大降低补妆频率；双专利植萃搭配美韩进口舒缓原料，无酒精温和配方，敏感肌、痘肌均可放心使用，定妆的同时修护肌肤屏障，实现彩妆与护肤兼顾。产品不挑肤质、不限使用场景，淡妆日常妆、完整浓妆都能适配，从清晨出门到夜晚归家，长久维持干净完整的妆容。与其反复更换粉底、散粉，在底妆翻车后仓促补救，不如选对定妆核心好物，从后端稳固全妆成果。MOTASY 清透雾感定妆喷雾，精准贴合当代人的妆容与肌肤困扰，将专利院线级的定妆配方融入日常，既能牢牢锁住妆容美感，又能温柔呵护肌肤，让每一次化妆都轻松自在，时刻保持从容精致的状态。</p></div>`},
+{id:7,title:'VANT36.5 泛醇洁面乳 精准解决各类面部肌肤困扰',img:'https://img.alicdn.com/imgextra/i4/2220240257938/O1CN01OBKzeN28Vf7SnqsMP_!!4611686018427380626-0-item_pic.jpg_q50.jpg_.webp',summary:'当下都市人群的面部肌肤，长期饱受环境污染、彩妆残留、换季温差、作息紊乱、护肤方式错误等多重问题侵袭，干皮紧绷起皮、敏肌泛红刺痛、油皮出油长痘、混肤质水油失衡成为大众常态。VANT36.5 泛醇洁面乳以氨基酸复配葡糖苷表活为清洁基底，0.706% 黄金占比泛醇为修护核心，做到清洁、保湿、修护三合一。',content:`<div class="article-content"><h3>前言</h3><p>当下都市人群的面部肌肤，长期饱受环境污染、彩妆残留、换季温差、作息紊乱、护肤方式错误等多重问题侵袭，干皮紧绷起皮、敏肌泛红刺痛、油皮出油长痘、混肤质水油失衡成为大众常态。绝大多数人护肤本末倒置，一味追求高价精华、面霜，却忽略洁面是护肤的第一道关口。洁面产品配方选错，要么皂基强力脱脂损伤皮脂屏障，要么清洁力不足污垢残留，后续护肤事倍功半。VANT36.5 泛醇洁面乳依托完整科学的成分配方，以氨基酸复配葡糖苷表活为清洁基底，0.706% 黄金占比泛醇为修护核心，搭配多重舒缓植萃与保湿助剂，做到清洁、保湿、修护三合一，针对不同肤质的各类肌肤痛点对症下药，兼顾温和度与清洁力，是适配全年龄段、全肤质的日常洁面优选。</p><h3>一、硬核配方溯源，看懂产品底层实力</h3><p>结合产品完整成分配比，VANT36.5 泛醇洁面乳的配方架构主次分明，每一种原料都精准服务于清洁、保湿、修护三大核心作用，无多余刺激性添加，配方逻辑清晰有据。</p><p class="sub-title">（一）三重温和表活基底，清洁力精准可控</p><p>产品主表活为65.142% 椰油酰甘氨酸钾，搭配 10% 椰油酰乙酸钠辅助起泡，辅以 2% 椰油葡萄糖苷非离子葡糖苷表活复配，构成三重弱酸性氨基酸清洁体系，完全不含皂基、强碱成分，PH 值贴近人体肌肤天然皮脂环境。椰油酰甘氨酸钾是公认的温和氨基酸表活，能够快速溶解皮肤多余油脂、老废角质，而椰油葡糖苷进一步弱化表活刺激性，哪怕长时间接触肌肤，也不会过度剥离角质层脂质。揉搓后可以生成绵密细密的云朵泡沫，泡沫能够钻进毛孔缝隙，牢牢包裹粉尘、日常防晒、淡妆残留物，清水冲洗极易冲净，不会残留黏腻膜感，杜绝假滑、冲洗不干净闷痘的问题，从根源避开强清洁洁面带来的屏障损伤隐患。</p><p class="sub-title">（二）0.706% 黄金浓度泛醇，修护保湿双在线</p><p>泛醇（维生素原 B5）为本款产品的核心功效成分，添加量精准控制在 0.706%，是洁面品类的黄金添加比例。该浓度的泛醇可顺利穿透肌肤角质层，一方面具备极强的亲水吸湿能力，能够抓取环境水分与肌肤底层水分，充盈干瘪角质细胞；另一方面可在肌肤内部转化为泛酸，参与肌肤蛋白质与脂质合成，填补受损屏障缝隙，舒缓肌肤炎症反应。区别于普通洁面只做表面清洁，洗脸的全过程，就是给肌肤同步修护维稳的过程，洗完脸水润不紧绷，长期使用能够增厚健康角质，提升肌肤自身耐受能力。</p><p class="sub-title">（三）多元保湿体系加持，长效锁住肌肤水分</p><p>配方搭配 16.2% 甲基丙二醇、1.8% 氨丁三醇、1% 甜菜碱、2% 甘油二硬脂酸酯多重保湿成分，构建完整的锁水保湿网络。甲基丙二醇作为优质多元醇，渗透性佳，可深入肌底补水；甜菜碱是经典亲肤保湿因子，耐温差、锁水稳定，能牢牢锁住清洁后的水分，避免水分快速蒸发；甘油二硬脂酸酯柔和润肤，在皮肤表层形成轻薄透气的保湿膜，润而不闷，兼顾干性肌肤的滋润需求与油性肌肤的清爽体感，彻底解决洁面后水分快速流失的通病。</p><p class="sub-title">（四）天然植萃复配，舒缓控油多维增效</p><p>配方精心搭配多种天然植萃精油与植物提取物，和泛醇形成协同增效作用：0.3% 积雪草苷主打屏障修护，舒缓破损肌肤；0.2% 尤加利叶油、0.2% 薰衣草油、0.103% 茶树叶油天然抑菌控油，改善油脂过剩、炎性痘痘；掌叶大黄根提取物、金银花花提取物、西伯利亚落叶松木提取物，多重植萃合力舒缓泛红、干痒、燥热等敏感症状。微量李子、葡萄、苹果、野梨、香蕉等果蔬提取物辅以温和滋养，搭配羟基苯乙醇 + 1,2 - 己二醇复合型温和防腐体系，全程无酒精、无人工香精、无合成色素、无强刺激性防腐剂，配方精简安全，脆弱肌肤也可放心使用。</p><h3>二、对应各类肌肤困扰，精准匹配肤质解决方案</h3><p>结合配方特性，本款洁面针对干性、敏感性、油性、混合性四大主流肤质的典型问题，均能完美适配，逐一破解日常护肤难题。</p><p class="sub-title">（一）干性肌肤：解决紧绷、起皮、粗糙、干纹</p><p>核心肌肤困扰：早晚洁面后脸颊迅速紧绷、干涩，秋冬极易起皮、卡粉，角质粗糙无光，长期缺水催生干细纹，很多干皮为了滋润选择滋润型洁面，却常常面临洗不干净、闷闭口的问题。产品适配效果：三重氨基酸表活温和脱脂，不会带走皮肤必要的保护性油脂，搭配甜菜碱、多元醇保湿体系与黄金浓度泛醇，清洁的同时同步补水锁水。洗完面部柔软水润，完全没有拔干紧绷感，晨起清水洁面、晚间完整洁面都适用。长期使用可以逐步改善角质缺水粗糙状态，让肤质变得平滑软嫩，缓解干纹，从根源改善干皮缺水亚健康状态。</p><p class="sub-title">（二）敏感性 / 屏障受损肌肤：改善泛红、刺痛、换季过敏、红血丝</p><p>核心肌肤困扰：角质层薄弱，皮脂膜受损，遇冷热温差、风吹、换季就快速泛红灼热，洗脸水温稍有偏差便刺痛发痒，普通洁面中的香精、皂基极易诱发过敏，红血丝明显，肌肤耐受度极差，甚至医美术后、烂脸期不敢随意洁面。产品适配效果：无酒精、无香精、无刺激防腐的纯净配方，从源头规避致敏源，三重复配表活刺激性极低。核心泛醇搭配积雪草苷、金银花提取物，即时舒缓肌肤泛红灼热，加速破损屏障修护，逐步增厚健康角质，强化肌肤抵御力。敏感期、换季期、医美术后维稳阶段均可安心使用，温和完成日常清洁，不会给肌肤增添负担，长期使用稳步改善易敏体质，淡化显性红血丝。</p><p class="sub-title">（三）油性 & 油敏肌肤：改善外油内干、毛孔粗大、黑头反复、痘痘闭口</p><p>核心肌肤困扰：T 区全天油光满面，毛孔粗大，黑头、白头粉刺源源不断，频繁使用强力皂基洁面控油，短期清爽过后，皮肤代偿性出油更加严重，演变为外油内干，油脂堵塞毛孔滋生炎性痘痘，同时伴随泛红敏感，变成难调理的油敏肌。产品适配效果：氨基酸主表活搭配葡糖苷表活，清洁力恰到好处，能够温和洗净多余过剩油脂、毛孔深处彩妆粉尘残留，疏通堵塞毛孔。茶树、尤加利等精油天然抑菌控油，泛醇缓冲表活刺激，避免过度清洁损伤屏障，从根源改善油脂分泌紊乱。坚持使用，可逐步收敛粗大毛孔，减少黑头、闭口、红肿痘痘反复生长，打破"越洗越油"的恶性循环，实现水油平衡，兼顾控油清爽与肌肤修护。</p><p class="sub-title">（四）混合性肤质：告别分区难护理，T 区油腻、两颊干涩两难</p><p>核心肌肤困扰：面部肤质两极分化，额头、鼻翼 T 区出油旺盛，下巴易闷痘，而两颊偏干，普通洁面很难兼顾，控油款会让脸颊干燥脱皮，滋润款会让 T 区油腻闷痘，四季肤质波动，分区护肤流程繁琐。产品适配效果：一瓶即可满足全脸清洁需求，绵密泡沫可以针对性带走 T 区多余油脂，温和疏通毛孔；两颊区域在泛醇与多元醇保湿成分的呵护下，水润不拔干，无需分区准备两款洁面，简化护肤流程。一年四季均可使用，夏季清爽不黏腻，冬季滋润不干涩，稳定调节全脸水油状态，让混合肤质趋于均衡稳定。</p><p class="sub-title">（五）中性健康肤质：日常维稳，抵御外界肌肤隐患</p><p>核心肌肤困扰：肤质整体状态平稳，但长期面对城市粉尘、日常防晒、熬夜压力，若洁面产品选择不当，容易慢慢出现暗沉、油脂失衡、屏障弱化，逐步走向肤质变差。产品适配效果：温和的清洁体系可以稳妥完成日常基础清洁，泛醇与植萃成分持续稳固皮脂屏障，抵御外界污染、紫外线残留带来的肌肤损伤，预防肤质敏感、出油、干燥等问题提前发生，长久维持肌肤水润通透的健康原生状态，实现长效维稳。</p><h3>三、使用场景与使用优势总结</h3><p>使用场景全覆盖：晨起晨间轻洗，唤醒肌肤，温和去除夜间代谢油脂；晚间晚间深度清洁，可洗净日常通勤防晒、轻薄底妆；出差旅行、孕期护肤、术后修护等特殊场景，都可以安心使用，适配全年龄段人群。肤感体验出众：起泡快速绵密，触感柔软亲肤，冲洗便捷无残留，无假滑、无紧绷两大通病，各类肤质都能拥有舒适的洁面体验。护肤逻辑升级：打破洁面只负责清洁的固有思维，把修护保湿融入洗脸步骤，护肤第一步打好基础，后续水乳、精华的吸收效率大幅提升，护肤事半功倍。</p><h3>结语</h3><p>护肤的根本，永远是守护健康的皮肤屏障，而洁面正是屏障养护的第一道防线。VANT36.5 泛醇洁面乳依托科学完整的成分配方，以三重氨基酸葡糖苷表活打造温和清洁力，以 0.706% 黄金泛醇为修护核心，搭配全套保湿舒缓植萃体系，直面当代人干性、敏性、油性、混合性肤质的各类面部难题，做到净而不伤、润而不腻。洗脸不是简单的去污，而是日常肌肤养护的开端，选对一款适配肤质的洁面产品，才能从根源减少肌肤问题，循序渐进养出水润、强韧、稳定的健康好肌肤。</p></div>`}
+];
+const questions = [
+{question:'您的肤质是？',options:['油皮','干皮','混合皮','敏感肌'],key:'skinType'},
+{question:'您的年龄段？',options:['20岁以下','20-30岁','30-40岁','40岁以上'],key:'ageGroup'},
+{question:'您最关心的护肤需求？',options:['保湿','控油','抗皱','美白','舒缓'],key:'concern'},
+{question:'您希望的护肤品质地？',options:['清爽','滋润'],key:'texture'},
+{question:'您的肌肤敏感程度？',options:['耐受','轻微敏感','高度敏感'],key:'sensitivity'}
+];
+let userAnswers={};
+let currentStep=0;
+let currentProductFilter='全部';
+function createProductCard(p){
+let attrs='';for(let[k,v]of Object.entries(p.attributes)) attrs+=`<div><strong>${k}：</strong>${v}</div>`;
+let price='';
+if(p.price){
+if(p.originalPrice&&p.originalPrice>p.price) price=`<span class="price-capacity"><span class="original-price">¥${p.originalPrice}</span>¥${p.price}${p.capacity?' / '+p.capacity:''}</span>`;
+else price=`<span class="price-capacity">¥${p.price}${p.capacity?' / '+p.capacity:''}</span>`;
+}
+return `<div class="product-card" data-product-id="${p.id}"><div class="img-container"><img src="${p.image}" alt="${p.name}"></div><div class="info"><span class="type-badge">${p.type}</span><h4>${p.name}</h4><p class="desc">${p.desc}</p><div class="attrs">${attrs}</div>${price}</div><button class="buy-btn" data-product-id="${p.id}" data-buy-link="${p.buyLink}">🛒 立即购买</button></div>`;
+}
+function showProductDetail(id){
+const p=products.find(x=>x.id===id);if(!p)return;
+let attrs='';for(let[k,v]of Object.entries(p.attributes)) attrs+=`<div><strong>${k}：</strong>${v}</div>`;
+let price='';
+if(p.price){
+if(p.originalPrice&&p.originalPrice>p.price) price=`<div style="font-size:1.15rem;color:#c0392b;font-weight:700;margin:10px 0;"><span style="text-decoration:line-through;color:#999;font-weight:400;margin-right:12px;">原价：¥${p.originalPrice}</span>优惠价：¥${p.price}${p.capacity?' / '+p.capacity:''}</div>`;
+else price=`<div style="font-size:1.15rem;color:#c0392b;font-weight:700;margin:10px 0;">价格：¥${p.price}${p.capacity?' / '+p.capacity:''}</div>`;
+}
+document.getElementById('productDetailContent').innerHTML=`<h3 style="color:#2c2c2c;margin-bottom:15px;">${p.name}</h3><span class="type-badge" style="margin-bottom:15px;display:inline-block;background:#f5ede7;color:#8b6b5c;">${p.type}</span><div style="background:#faf8f6;border-radius:8px;padding:10px;margin:15px 0;display:flex;align-items:center;justify-content:center;"><img src="${p.image}" alt="${p.name}" style="max-width:100%;max-height:350px;object-fit:contain;border-radius:8px;"></div><p style="font-size:1.05rem;margin-bottom:15px;color:#5a5a5a;">${p.desc}</p>${price}<div style="background:#faf8f6;padding:15px;border-radius:8px;margin-bottom:18px;color:#5a5a5a;">${attrs}</div><div style="background:#faf8f6;padding:15px;border-radius:8px;margin-bottom:18px;color:#5a5a5a;"><h4 style="color:#2c2c2c;margin-bottom:10px;">📋 商品详细</h4><p style="line-height:1.8;">${p.detail}</p></div><a href="${p.buyLink}" target="_blank" class="product-detail-buy">🛒 前往官方购买</a>`;
+document.getElementById('productModal').classList.add('active');
+}
+document.addEventListener('click',function(e){
+if(e.target.classList.contains('buy-btn')){
+e.stopPropagation();const link=e.target.getAttribute('data-buy-link');if(link&&link!=='#')window.open(link,'_blank');else alert('暂无购买链接');return;
+}
+const card=e.target.closest('.product-card');if(card){const id=parseInt(card.getAttribute('data-product-id'));if(id)showProductDetail(id);}
+});
+document.getElementById('closeProductModal').addEventListener('click',()=>document.getElementById('productModal').classList.remove('active'));
+document.getElementById('productModal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('active');});
+function renderFilteredProducts(type){
+const container=document.getElementById('allProducts');
+let filtered=products;
+if(type!=='全部') filtered=products.filter(p=>p.type===type);
+container.innerHTML=filtered.map(p=>createProductCard(p)).join('');
+currentProductFilter=type;
+document.querySelectorAll('.filter-btn').forEach(btn=>{btn.classList.remove('active-filter');if(btn.getAttribute('data-filter')===type)btn.classList.add('active-filter');});
+}
+function renderAllProducts(){renderFilteredProducts('全部');}
+function bindFilterEvents(){document.querySelectorAll('.filter-btn').forEach(btn=>{btn.addEventListener('click',function(){renderFilteredProducts(this.getAttribute('data-filter'));});});}
+function renderQuizStep(step){
+const container=document.getElementById('quizSteps');
+if(step>=questions.length){showRecommendation();return;}
+const q=questions[step];
+const progressPercent=((step)/questions.length)*100;
+container.innerHTML=`<div class="quiz-question"><h3>${q.question}</h3><div class="options-grid">${q.options.map(opt=>`<button class="option-btn" data-value="${opt}">${opt}</button>`).join('')}</div><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${progressPercent}%;"></div></div><div class="progress-text">问题 ${step+1} / ${questions.length}</div></div>`;
+document.querySelectorAll('.option-btn').forEach(btn=>{btn.addEventListener('click',function(){userAnswers[q.key]=this.getAttribute('data-value');currentStep++;renderQuizStep(currentStep);});});
+}
+function showRecommendation(){
+document.getElementById('quizSteps').innerHTML='';
+const resultArea=document.getElementById('resultArea');
+const recommendContainer=document.getElementById('recommendProducts');
+const skinType=userAnswers.skinType,concern=userAnswers.concern,ageGroup=userAnswers.ageGroup,texture=userAnswers.texture,sensitivity=userAnswers.sensitivity;
+let userTags=[skinType,concern];
+if(ageGroup==='40岁以上')userTags.push('抗皱');
+if(ageGroup==='30-40岁'&&concern==='抗皱')userTags.push('30+');
+const scored=products.map(p=>{let score=0;for(let tag of userTags){if(p.tags.includes(tag))score++;}if(p.attributes['适用肤质']&&p.attributes['适用肤质'].includes(skinType))score+=0.5;if(texture&&p.tags.includes(texture))score+=1.2;if(sensitivity==='高度敏感'){if(p.tags.includes('敏感肌')||p.tags.includes('温和'))score+=1.5;}else if(sensitivity==='轻微敏感'){if(p.tags.includes('温和'))score+=0.8;}return{product:p,score};}).filter(item=>item.score>0).sort((a,b)=>b.score-a.score);
+if(scored.length===0)recommendContainer.innerHTML='<p style="color:#5a5a5a;">暂无完全匹配的产品，建议查看全部商品。</p>';
+else{const best=scored[0].product;recommendContainer.innerHTML=createProductCard(best);}
+const retryBtn=document.createElement('button');retryBtn.textContent='↩️ 返回重新测试';retryBtn.style.cssText='display:block;margin:22px auto 0;background:var(--primary);color:#fff;border:none;padding:11px 28px;border-radius:24px;font-size:0.95rem;cursor:pointer;transition:0.3s;font-weight:600;';retryBtn.addEventListener('mouseenter',()=>retryBtn.style.background='#d48165');retryBtn.addEventListener('mouseleave',()=>retryBtn.style.background='var(--primary)');retryBtn.addEventListener('click',resetQuiz);
+const old=document.getElementById('retryQuizBtn');if(old)old.remove();retryBtn.id='retryQuizBtn';resultArea.appendChild(retryBtn);resultArea.classList.add('show');
+}
+function resetQuiz(){userAnswers={};currentStep=0;document.getElementById('resultArea').classList.remove('show');document.getElementById('recommendProducts').innerHTML='';const old=document.getElementById('retryQuizBtn');if(old)old.remove();renderQuizStep(0);}
+const navItems=document.querySelectorAll('.nav-item');
+const sections=document.querySelectorAll('section');
+function navigateTo(target){
+sections.forEach(sec=>sec.classList.remove('active-section'));
+navItems.forEach(link=>link.classList.remove('active'));
+const sec=document.getElementById(target);if(sec)sec.classList.add('active-section');
+const link=document.querySelector(`.nav-item[data-target="${target}"]`);if(link)link.classList.add('active');
+if(target==='home')resetQuiz();
+if(target==='recommend')renderCategoryRecommend();
+if(target==='products')renderFilteredProducts(currentProductFilter);
+if(target==='news')renderNews();
+}
+navItems.forEach(item=>{item.addEventListener('click',(e)=>{e.preventDefault();navigateTo(item.getAttribute('data-target'));});});
+function renderCategoryRecommend(){
+const container=document.getElementById('categoryRecommend');
+const types=['洁面','眼霜','定妆喷雾','面膜'];let html='';
+for(let type of types){const arr=products.filter(p=>p.type===type);if(arr.length===0)continue;arr.sort((a,b)=>b.popularity-a.popularity);const best=arr[0];html+=`<div class="category-block"><h3>${type}类人气王</h3>${createProductCard(best)}</div>`;}
+container.innerHTML=html;
+}
+function renderNews(){
+const container=document.getElementById('newsGrid');
+container.innerHTML=newsData.map(item=>`<div class="news-card" data-news-id="${item.id}"><img src="${item.img}" alt="${item.title}"><div class="news-text"><h4>${item.title}</h4><p>${item.summary}</p></div></div>`).join('');
+document.querySelectorAll('.news-card').forEach(card=>{
+card.addEventListener('click',function(){
+const id=parseInt(this.getAttribute('data-news-id'));
+const item=newsData.find(n=>n.id===id);
+if(item){document.getElementById('modalTitle').textContent=item.title;document.getElementById('modalImg').src=item.img;document.getElementById('modalContent').innerHTML=item.content;document.getElementById('newsModal').classList.add('active');}
+});
+});
+}
+document.getElementById('closeNewsModal').addEventListener('click',()=>document.getElementById('newsModal').classList.remove('active'));
+document.getElementById('newsModal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('active');});
+// contact form
+(function(){
+const form=document.getElementById('contactForm');
+const feedback=document.getElementById('formFeedback');
+const submitBtn=form.querySelector('button[type="submit"]');
+form.addEventListener('submit',async function(e){
+e.preventDefault();
+feedback.className='form-feedback';
+feedback.textContent='⏳ 正在发送，请稍候...';
+feedback.style.display='block';
+feedback.style.background='#e3f2fd';
+feedback.style.color='#0d47a1';
+feedback.style.border='1px solid #90caf9';
+submitBtn.disabled=true;
+submitBtn.textContent='⏳ 发送中...';
+try{
+const formData=new FormData(form);
+const response=await fetch('https://formsubmit.co/ajax/3197131244@qq.com',{
+method:'POST',
+headers:{'Accept':'application/json'},
+body:formData
+});
+const result=await response.json();
+if(response.ok&&result.success){
+feedback.className='form-feedback success';
+feedback.textContent='✅ 发送成功！我们会尽快回复您。感谢您的留言！';
+form.reset();
+}else throw new Error(result.message||'提交失败，请稍后重试');
+}catch(err){
+feedback.className='form-feedback error';
+feedback.textContent='❌ 发送失败：'+err.message+'。请稍后重试或直接发送邮件至 3197131244@qq.com';
+}finally{
+submitBtn.disabled=false;
+submitBtn.textContent='发送消息';
+}
+});
+})();
+const viewToggleBtn=document.getElementById('viewToggleBtn');
+let mobileActive=false;
+function applyMobile(){document.body.classList.add('mobile');viewToggleBtn.innerHTML='💻 电脑视图';mobileActive=true;}
+function removeMobile(){document.body.classList.remove('mobile');viewToggleBtn.innerHTML='📱 手机视图';mobileActive=false;}
+viewToggleBtn.addEventListener('click',function(){if(mobileActive)removeMobile();else applyMobile();});
+function checkScreen(){if(window.innerWidth<=768){if(!mobileActive)applyMobile();}}
+window.addEventListener('resize',checkScreen);
+checkScreen();
+renderCategoryRecommend();
+renderAllProducts();
+bindFilterEvents();
+renderNews();
+navigateTo('home');
+</script>
+</body>
+</html>
